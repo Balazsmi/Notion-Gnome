@@ -1,0 +1,15 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+/* Force-disable Firefox spellcheck red underlines in page content */
+:-moz-badspell,
+:-moz-badnoun {
+  text-decoration: none !important;
+  text-decoration-color: transparent !important;
+  text-decoration-style: none !important;
+}
+
+/* Also hide any residual decoration on inline elements */
+:-moz-badspell::after,
+:-moz-badnoun::after {
+  display: none !important;
+}

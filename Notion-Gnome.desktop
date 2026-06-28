@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Notion-Gnome
+Comment=Notion PWA with a repo-managed isolated Firefox profile
+Exec=env MOZ_ENABLE_WAYLAND=1 firefox --class=notion-gnome --name=notion-gnome --profile=$HOME/.local/share/notion-gnome/profile --no-remote https://app.notion.com
+Icon=notion
+StartupWMClass=notion-gnome
+Categories=Office;Network;
+Terminal=false
