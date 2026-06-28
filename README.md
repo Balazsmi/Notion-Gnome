@@ -1,6 +1,7 @@
 # Notion-Gnome
-
 A Firefox-based Notion PWA styled to look like a GNOME GTK4 application.
+
+![Notion GNOME Screenshot](screenshots/notion-screenshot.png)
 
 This repo packages the Notion app launcher, an isolated Firefox profile, and custom Firefox chrome styles for `https://app.notion.com`.
 
