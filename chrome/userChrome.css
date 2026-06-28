@@ -1,5 +1,6 @@
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
+/* --- 1. MAIN TITLEBAR CONTAINER (Libadwaita Headerbar) --- */
 #TabsToolbar {
   position: relative !important;
   min-height: 46px !important;
@@ -12,6 +13,7 @@
   -moz-window-dragging: drag !important;
 }
 
+/* Centered Title Text */
 #TabsToolbar::before {
   content: "Notion";
   position: absolute;
@@ -22,109 +24,100 @@
   transform: translateX(-50%) !important;
   height: 46px;
   line-height: 46px !important;
-  font-size: 13px !important;
-  font-weight: 500 !important;
-  letter-spacing: normal !important;
-  text-transform: none !important;
-  color: color-mix(in srgb, currentColor 80%, transparent) !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: color-mix(in srgb, currentColor 85%, transparent) !important;
   pointer-events: none;
 }
 
-#TabsToolbar .titlebar-buttonbox-container,
-#TabsToolbar .titlebar-buttonbox {
-  min-height: 46px !important;
-}
-
-#TabsToolbar .titlebar-spacer[type="pre-tabs"] {
-  display: none !important;
-}
-
-#TabsToolbar .titlebar-spacer[type="post-tabs"] {
-  display: flex !important;
-  flex: 1 1 auto !important;
-}
-
+/* Alle Standard-Tabs und Toolbar-Menüs komplett vernichten */
 #TabsToolbar .toolbar-items,
 #TabsToolbar #firefox-view-button,
 #TabsToolbar #new-tab-button,
-#TabsToolbar #alltabs-button {
+#TabsToolbar #alltabs-button,
+#TabsToolbar .titlebar-spacer,
+#toolbar-menubar {
+  display: none !important;
   visibility: collapse !important;
 }
 
-#TabsToolbar .titlebar-buttonbox-container {
-  visibility: visible !important;
-  order: 999 !important;
-  margin-left: auto !important;
-  margin-right: 0 !important;
+#navigator-toolbox {
+  border-bottom: none !important;
 }
 
-#toolbar-menubar {
+/* --- 2. BACK / FORWARD NAVIGATION (GTK4 Linked Box) --- */
+#nav-bar {
   position: absolute !important;
-  top: 46px !important;
-  left: 0 !important;
-  right: 0 !important;
-  z-index: 3 !important;
-  width: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  min-height: 0 !important;
-  max-height: calc(100vh - 46px) !important;
+  top: 0 !important;
+  left: 10px !important;
+  height: 46px !important;
+  width: auto !important; 
   background: transparent !important;
   box-shadow: none !important;
   border: none !important;
+  z-index: 4 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
 }
 
-#toolbar-menubar[inactive="true"] {
+/* Radikales Ausmisten: NUR das Customization-Target mit den Buttons bleibt */
+#nav-bar > :not(#nav-bar-customization-target),
+#nav-bar-customization-target > :not(#back-button):not(#forward-button),
+#wrapper-back-button, #wrapper-forward-button,
+#urlbar-container, #search-container, #urlbar, .chromebutton, 
+#nav-bar-overflow-button, #PanelUI-button {
   display: none !important;
+  visibility: collapse !important;
 }
 
-#toolbar-menubar:not([inactive="true"]) {
-  display: block !important;
-}
-
-#toolbar-menubar > .titlebar-buttonbox-container,
-#toolbar-menubar .titlebar-buttonbox-container,
-#toolbar-menubar > .titlebar-buttonbox,
-#toolbar-menubar .titlebar-buttonbox {
-  display: none !important;
-}
-
+/* Das Target-Element wird zur linked GTK4-Pille */
 #nav-bar-customization-target {
   display: flex !important;
   align-items: center !important;
-  min-height: 46px !important;
+  height: 28px !important;
+  background-color: color-mix(in srgb, currentColor 6%, transparent) !important;
+  border: 1px solid color-mix(in srgb, currentColor 8%, transparent) !important;
+  border-radius: 10px !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  -moz-window-dragging: no-drag !important;
 }
 
-#nav-bar-customization-target > :not(#back-button):not(#forward-button),
-#nav-bar > :not(#nav-bar-customization-target) {
-  display: none !important;
-}
-
+/* Basis-Styling für die Nav-Buttons */
 #nav-bar #back-button,
 #nav-bar #forward-button {
   display: inline-flex !important;
   position: relative !important;
   visibility: visible !important;
-  margin: 0 2px !important;
-  width: 28px !important;
-  height: 28px !important;
-  min-width: 28px !important;
-  min-height: 28px !important;
+  margin: 0 !important;
+  width: 32px !important;
+  height: 100% !important;
   justify-content: center !important;
   align-items: center !important;
-  border-radius: 999px !important;
   padding: 0 !important;
   box-sizing: border-box !important;
-  border: 1px solid transparent !important;
   background: transparent !important;
   color: color-mix(in srgb, currentColor 88%, transparent) !important;
-  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease !important;
+  border: none !important;
+  border-radius: 0 !important;
+  transition: background-color 80ms ease-in-out !important;
 }
 
+/* Spezifische Rundungen für die Ecken der Gruppe (GTK4 .linked) */
+#nav-bar #back-button {
+  border-radius: 9px 0 0 9px !important;
+}
+#nav-bar #forward-button {
+  border-radius: 0 9px 9px 0 !important;
+  border-left: 1px solid color-mix(in srgb, currentColor 10%, transparent) !important;
+}
+
+/* Libadwaita Hover & Active States */
 #nav-bar #back-button:hover,
 #nav-bar #forward-button:hover {
   background-color: color-mix(in srgb, currentColor 8%, transparent) !important;
-  border-color: color-mix(in srgb, currentColor 12%, transparent) !important;
 }
 
 #nav-bar #back-button:active,
@@ -132,11 +125,15 @@
   background-color: color-mix(in srgb, currentColor 14%, transparent) !important;
 }
 
+/* Inaktive Buttons (Ausgegraut) */
 #nav-bar #back-button[disabled="true"],
 #nav-bar #forward-button[disabled="true"] {
-  opacity: 0.38 !important;
+  opacity: 0.35 !important;
+  background: transparent !important;
+  pointer-events: none !important;
 }
 
+/* Icons einpassen */
 #nav-bar #back-button .toolbarbutton-icon,
 #nav-bar #forward-button .toolbarbutton-icon {
   display: none !important;
@@ -148,89 +145,75 @@
   position: absolute;
   inset: 0;
   margin: auto;
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   background-color: currentColor;
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  -webkit-mask-size: contain;
   mask-repeat: no-repeat;
   mask-position: center;
   mask-size: contain;
-  transform: none;
 }
 
 #nav-bar #back-button::before {
-  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M10.7 3.3L6.4 8l4.3 4.7' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/></svg>");
-  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M10.7 3.3L6.4 8l4.3 4.7' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M11.5 2L5.5 8l6 6' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 }
 
 #nav-bar #forward-button::before {
-  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M5.3 3.3L9.6 8 5.3 12.7' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/></svg>");
-  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M5.3 3.3L9.6 8 5.3 12.7' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M4.5 2l6 6-6 6' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 }
 
-#navigator-toolbox {
-  border-bottom: none !important;
-}
-
-#mainPopupSet:has(> [panelopen]) ~ toolbox #toolbar-menubar[inactive="true"] ~ #nav-bar {
-  position: relative !important;
-  top: 0 !important;
-}
-
-#mainPopupSet:has(> [panelopen]) ~ toolbox #toolbar-menubar {
-  top: 46px !important;
-}
-
-#mainPopupSet:has(> [panelopen]) ~ toolbox #toolbar-menubar ~ #nav-bar {
-  top: 0 !important;
-}
-
-/* Force a single native-looking topbar: hide the secondary toolbar-menubar
-   and any nav-bar that would render outside the TabsToolbar. The nav-bar
-   inside #TabsToolbar remains visible and positioned there. */
-#toolbar-menubar {
-  display: none !important;
-  visibility: collapse !important;
-}
-
-/* Hide the standalone nav-bar sibling of the toolbox (the separate row). */
-toolbox > #nav-bar {
-  display: none !important;
-  visibility: collapse !important;
-}
-
-/* Ensure the nav-bar inside the TabsToolbar is visible and laid out inline. */
-#TabsToolbar #nav-bar,
-#TabsToolbar #nav-bar-customization-target {
+/* --- 3. NATIVE WINDOW CONTROLS (TOP-RIGHT) --- */
+#TabsToolbar .titlebar-buttonbox-container {
+  visibility: visible !important;
   display: flex !important;
   position: absolute !important;
   top: 0 !important;
-  left: 8px !important;
-  z-index: 4 !important;
+  right: 0 !important;
+  height: 46px !important;
+  align-items: center !important;
+  z-index: 5 !important;
+  margin: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 10px !important;
 }
 
-/* Ensure the nav-bar is visually part of the native topbar (TabsToolbar)
-   instead of rendering as a separate toolbar below it. This places the
-   navigation buttons at the left side of the titlebar like native GNOME apps. */
-#TabsToolbar #nav-bar,
-#TabsToolbar #nav-bar-customization-target {
-  position: absolute !important;
-  top: 0 !important;
-  left: 8px !important;
-  z-index: 4 !important;
-  height: 46px !important;
+#TabsToolbar .titlebar-buttonbox {
+  visibility: visible !important;
   display: flex !important;
   align-items: center !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-  -moz-window-dragging: no-drag !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-/* When popups are open, don't let the menu layout push the nav-bar down. */
-#mainPopupSet:has(> [panelopen]) ~ toolbox #TabsToolbar #nav-bar {
-  top: 0 !important;
-  position: absolute !important;
+.titlebar-close {
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* --- 4. CONTEXT MENU RADICAL CLEANUP --- */
+#context-ml-chat, 
+#context-ask-ai, 
+[id*="context-ml-chat"],
+#context-translate,
+#context-searchselect {
+  display: none !important;
+  visibility: collapse !important;
+}
+
+/* --- 5. HARD DISABLE TAB/WINDOW SHORTCUTS --- */
+#key_newNavigatorTab,
+#key_newNavigator,
+key[command="cmd_newNavigatorTab"],
+key[id="key_newNavigatorTab"] {
+  display: none !important;
+  removeelement: true !important;
+}
+
+
+
+/* --- 5. STATUSPANEL (LINK-VORSCHAU / LADE-STATUS) ENTFERNEN --- */
+/* Deaktiviert die Status-Vorschau unten links komplett */
+#statuspanel {
+  display: none !important;
+  visibility: collapse !important;
 }

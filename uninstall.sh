@@ -12,4 +12,4 @@ if command -v update-desktop-database >/dev/null 2>&1; then
   update-desktop-database "$DESKTOP_DIR" >/dev/null 2>&1 || true
 fi
 
-echo "Uninstalled Notion-Gnome."
+echo "Uninstalled Notion successfully."

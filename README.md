@@ -22,7 +22,7 @@ cd Notion-Gnome
 ./install.sh
 ```
 
-Then launch **Notion-Gnome** from your application menu.
+Then launch **Notion-Gnome** from your application menu. If the app is already running, the installer will close the existing instance so your updated Firefox chrome styles are applied.
 
 ## Uninstall
 
